@@ -2,8 +2,10 @@ package com.ramanujam.ProductService.service;
 
 import com.ramanujam.ProductService.entity.Product;
 import com.ramanujam.ProductService.model.ProductRequest;
+import com.ramanujam.ProductService.model.ProductResponse;
 import com.ramanujam.ProductService.repository.ProductRepository;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +31,21 @@ public class ProductServiceImpl implements ProductService{
         productRepository.save(product);
         log.info("Added product");
         return product.getProductId();
+    }
+
+    @Override
+    public ProductResponse getProductById(long productId) {
+        //Get the Product from repository
+        Product product
+                =productRepository.findById(productId)
+                .orElseThrow(
+                        ()-> new RuntimeException("Product not found"));
+        //Convert the product to ProductResponse to get back to the controller
+        ProductResponse productResponse
+            = new ProductResponse();
+        //Use Beanutils to copy product to productResponse object
+        BeanUtils.copyProperties(product,productResponse);
+        //Return productResponse back to controller
+        return productResponse;
     }
 }
