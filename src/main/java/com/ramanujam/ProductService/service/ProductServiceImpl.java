@@ -1,6 +1,7 @@
 package com.ramanujam.ProductService.service;
 
 import com.ramanujam.ProductService.entity.Product;
+import com.ramanujam.ProductService.exception.ProductServiceCustomException;
 import com.ramanujam.ProductService.model.ProductRequest;
 import com.ramanujam.ProductService.model.ProductResponse;
 import com.ramanujam.ProductService.repository.ProductRepository;
@@ -39,7 +40,7 @@ public class ProductServiceImpl implements ProductService{
         Product product
                 =productRepository.findById(productId)
                 .orElseThrow(
-                        ()-> new RuntimeException("Product not found"));
+                        ()-> new ProductServiceCustomException("Product not found","PRODUCT_NOT_FOUND"));
         //Convert the product to ProductResponse to get back to the controller
         ProductResponse productResponse
             = new ProductResponse();
