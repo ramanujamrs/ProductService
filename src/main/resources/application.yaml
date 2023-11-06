@@ -9,6 +9,6 @@ spring:
     password: Mysqlpassword123#
     driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
-    database-platform: org.hibernate.dialiect.MySQL57InnoDialect
+    database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
