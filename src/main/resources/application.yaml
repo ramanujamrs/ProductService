@@ -1,6 +1,8 @@
 server:
   port: 8080
-
+  error:
+    include-message: always
+    include-binding-errors: always
 
 spring:
   datasource:
@@ -15,6 +17,7 @@ spring:
 
   application:
     name: PRODUCT_SERVICE
+
 
 eureka:
   instance:

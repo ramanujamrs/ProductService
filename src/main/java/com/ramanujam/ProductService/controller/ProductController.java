@@ -3,6 +3,8 @@ package com.ramanujam.ProductService.controller;
 import com.ramanujam.ProductService.model.ProductRequest;
 import com.ramanujam.ProductService.model.ProductResponse;
 import com.ramanujam.ProductService.service.ProductService;
+import jakarta.validation.Valid;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/product")
+@Log4j2
 public class ProductController {
 
     // Create the Business layer object
@@ -20,10 +23,11 @@ public class ProductController {
     // Takes requestbody as parameter in form of object
 
     @PostMapping
-    public ResponseEntity<Long> addProduct(@RequestBody ProductRequest productRequest) {
+    public ResponseEntity<Long> addProduct(@Valid @RequestBody ProductRequest productRequest) {
 
         //Call Service layer
         long productId = productService.addProduct(productRequest);
+        log.info("Adding product started");
         return new ResponseEntity<>(productId, HttpStatus.CREATED);
     }
 
@@ -31,7 +35,7 @@ public class ProductController {
     public ResponseEntity<ProductResponse> getProductById(@PathVariable("id") long productId) {
         ProductResponse productResponse
                 = productService.getProductById(productId);
-
+        log.info("Getting product started");
         return new ResponseEntity<>(productResponse,HttpStatus.OK);
     }
 
