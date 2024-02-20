@@ -5,10 +5,13 @@ server:
     include-binding-errors: always
 
 spring:
+  kafka:
+    bootstrap-servers: 192.168.1.240:9092
+
   datasource:
-    url: jdbc:mysql://${DB_HOST:192.168.1.238}:3306/productdb
-    username: developer
-    password: Mysqlpassword123#
+    url: jdbc:mysql://${DB_HOST:192.168.1.239}:3306/productdb
+    username: ramanujam
+    password: mysql1234#
     driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
@@ -19,6 +22,8 @@ spring:
     name: PRODUCT_SERVICE
   config:
     import: configserver:http://localhost:9296
+
+
 
 management:
   zipkin:
